@@ -1,1 +1,1 @@
-docker compose -f compose-local.yaml up
+docker compose -f compose-local.yml up
