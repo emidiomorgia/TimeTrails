@@ -1,0 +1,1 @@
+docker tag emidio78/timetrail-web emidio78/timetrail-web
