@@ -1,5 +1,5 @@
 {
   "scripts": {
-    "web-build": "cd src/web && npm install && npm run build"
+    "web-build": "cd src/web && npm install && npm run build && npm run test"
   }
 }
