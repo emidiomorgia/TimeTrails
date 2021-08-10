@@ -36,9 +36,7 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           context: ./src/web
-          file: ./Dockerfile
+          file: ./src/web/Dockerfile
           push: true
           tags: ${{ secrets.DOCKER_HUB_USERNAME }}/timetrail-web:latest
 
-      - name: Image digest
-        run: echo ${{ steps.docker_build.outputs.digest }}
