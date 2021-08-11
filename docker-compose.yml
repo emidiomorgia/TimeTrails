@@ -1,0 +1,6 @@
+version: "3.9"
+services:
+  web:
+    image: emidio78/timetrail-web
+    ports:
+      - "8001:80"
