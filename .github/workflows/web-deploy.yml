@@ -38,5 +38,5 @@ jobs:
           context: ./src/web
           file: ./src/web/Dockerfile
           push: true
-          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/timetrail-web:latest
+          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/timetrails-web:latest
 
