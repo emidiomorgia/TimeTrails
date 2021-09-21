@@ -14,6 +14,12 @@ public class DemoController {
     @Autowired
     RestTemplate restTemplate;
 
+    @Autowired
+    BeanResult beanResult1;
+
+    @Autowired
+    BeanResult beanResult2;
+
     @GetMapping("/hello/{name}")
     public DemoHelloResult Hello(@PathVariable String name){
         log.info("inside GET /demo/hello");
@@ -34,5 +40,19 @@ public class DemoController {
         UserDetailResult res = restTemplate.getForObject("http://AUTH-SERVICE/users/user-detail", UserDetailResult.class);
         return res;
     }
+
+    @GetMapping("/bean1")
+    public BeanResult bean1(){
+        log.info("inside GET /demo/bean1");
+        return beanResult1;
+    }
+
+    @GetMapping("/bean2")
+    public BeanResult bean2(){
+        log.info("inside GET /demo/bean2");
+        return beanResult2;
+    }
+
+
 
 }
