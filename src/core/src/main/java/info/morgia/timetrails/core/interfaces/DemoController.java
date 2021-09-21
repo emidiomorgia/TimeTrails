@@ -1,6 +1,8 @@
 package info.morgia.timetrails.core.interfaces;
 
 import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
@@ -20,6 +22,8 @@ public class DemoController {
     @Autowired
     BeanResult beanResult2;
 
+    Logger logger = LoggerFactory.getLogger(DemoController.class.getName());
+
     @GetMapping("/hello/{name}")
     public DemoHelloResult Hello(@PathVariable String name){
         log.info("inside GET /demo/hello");
@@ -36,7 +40,7 @@ public class DemoController {
 
     @GetMapping("/user-detail")
     public UserDetailResult userDetail(){
-        log.info("inside GET /demo/user-detail");
+        logger.info("inside GET /demo/user-detail","10");
         UserDetailResult res = restTemplate.getForObject("http://AUTH-SERVICE/users/user-detail", UserDetailResult.class);
         return res;
     }

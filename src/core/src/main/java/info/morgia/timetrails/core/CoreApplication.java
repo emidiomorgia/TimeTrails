@@ -1,5 +1,6 @@
 package info.morgia.timetrails.core;
 
+import brave.sampler.Sampler;
 import info.morgia.timetrails.core.interfaces.BeanResult;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -31,4 +32,12 @@ public class CoreApplication {
 	public BeanResult beanResult2() {
 		return new BeanResult("bean 2");
 	}
+
+	@Bean
+//creating a sampler called always sampler
+	public Sampler defaultSampler()
+	{
+		return Sampler.ALWAYS_SAMPLE;
+	}
+
 }
