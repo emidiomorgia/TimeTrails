@@ -1,11 +1,12 @@
 package info.morgia.timetrails.core.interfaces;
 
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.Date;
 
@@ -21,8 +22,6 @@ public class DemoController {
 
     @Autowired
     BeanResult beanResult2;
-
-    Logger logger = LoggerFactory.getLogger(DemoController.class.getName());
 
     @GetMapping("/hello/{name}")
     public DemoHelloResult Hello(@PathVariable String name){
@@ -40,7 +39,7 @@ public class DemoController {
 
     @GetMapping("/user-detail")
     public UserDetailResult userDetail(){
-        logger.info("inside GET /demo/user-detail","10");
+        log.info("inside GET /demo/user-detail","10");
         UserDetailResult res = restTemplate.getForObject("http://AUTH-SERVICE/users/user-detail", UserDetailResult.class);
         return res;
     }
@@ -55,6 +54,17 @@ public class DemoController {
     public BeanResult bean2(){
         log.info("inside GET /demo/bean2");
         return beanResult2;
+    }
+
+    @GetMapping("/error")
+    public String error() {
+        String res;
+        try {
+           res  = restTemplate.getForObject("http://AUTH-SERVICE/users/error", String.class);
+        } catch (Exception ex) {
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR,"An error occurred on the server");
+        }
+        return res;
     }
 
 
