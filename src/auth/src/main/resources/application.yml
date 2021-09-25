@@ -2,7 +2,11 @@ server:
   port: 8002
   error:
     include-message: always
-
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
 spring:
   application:
     name: auth-service

@@ -45,14 +45,13 @@ public class UsersController {
     }
 
     @GetMapping("/error")
-    public String error() throws Exception {
+    public String error() {
         try {
             return getValue();
         } catch (Exception ex) {
             StringWriter string_writer = new StringWriter();
-            ex.printStackTrace(
-                    new PrintWriter(string_writer));
-            log.error("error in code. original: " + string_writer.toString());
+            ex.printStackTrace(new PrintWriter(string_writer));
+            log.error("error in code. original: " + string_writer);
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "error in code");
         }
 

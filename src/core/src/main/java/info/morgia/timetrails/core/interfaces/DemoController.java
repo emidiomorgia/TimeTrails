@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.util.Date;
 
 @RestController
@@ -62,6 +64,9 @@ public class DemoController {
         try {
            res  = restTemplate.getForObject("http://AUTH-SERVICE/users/error", String.class);
         } catch (Exception ex) {
+            StringWriter string_writer = new StringWriter();
+            ex.printStackTrace(new PrintWriter(string_writer));
+            log.error("error in code. original: " + string_writer);
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR,"An error occurred on the server");
         }
         return res;
