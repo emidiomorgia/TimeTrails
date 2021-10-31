@@ -10,7 +10,7 @@ management:
 
 spring:
   application:
-    name: core-service
+    name: CORE-SERVICE
   zipkin:
     base-url: http://localhost:9411
     sender:

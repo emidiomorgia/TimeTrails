@@ -9,7 +9,7 @@ management:
         include: "*"
 spring:
   application:
-    name: auth-service
+    name: AUTH-SERVICE
   zipkin:
     base-url: http://localhost:9411
 
