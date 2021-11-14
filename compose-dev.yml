@@ -1,5 +1,15 @@
 version: "3.9"
 services:
+  mysql-server-1:
+      environment:
+        - MYSQL_ROOT_PASSWORD=mysql
+        - MYSQL_ROOT_HOST=%
+      image: mysql/mysql-server:8.0.12
+      ports:
+        - "3306:3306"
+      command: ["mysqld","--server_id=1","--binlog_checksum=NONE","--gtid_mode=ON","--enforce_gtid_consistency=ON","--log_bin","--log_slave_updates=ON","--master_info_repository=TABLE","--relay_log_info_repository=TABLE","--transaction_write_set_extraction=XXHASH64","--user=mysql","--skip-host-cache","--skip-name-resolve", "--default_authentication_plugin=mysql_native_password"]
+      volumes:
+        - c:\mysql1_data:/var/lib/mysql
   zipkin:
     image: ghcr.io/openzipkin/zipkin-slim:latest
     container_name: zipkin
@@ -33,4 +43,5 @@ volumes:
   prometheus_data:
   rabbitmq_data:
   rabbitmq_log:
+  mysql_dev:
       
