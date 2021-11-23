@@ -1,6 +1,6 @@
 version: "3.9"
 services:
-  mysql-server-1:
+  mysql:
       environment:
         - MYSQL_ROOT_PASSWORD=mysql
         - MYSQL_ROOT_HOST=%
