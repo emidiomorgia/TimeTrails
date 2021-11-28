@@ -1,0 +1,47 @@
+version: "3.9"
+services:
+  mysql:
+      environment:
+        - MYSQL_ROOT_PASSWORD=mysql
+        - MYSQL_ROOT_HOST=%
+      image: mysql/mysql-server:8.0.12
+      ports:
+        - "3306:3306"
+      command: ["mysqld","--server_id=1","--binlog_checksum=NONE","--gtid_mode=ON","--enforce_gtid_consistency=ON","--log_bin","--log_slave_updates=ON","--master_info_repository=TABLE","--relay_log_info_repository=TABLE","--transaction_write_set_extraction=XXHASH64","--user=mysql","--skip-host-cache","--skip-name-resolve", "--default_authentication_plugin=mysql_native_password"]
+      volumes:
+        - c:\mysql1_data:/var/lib/mysql
+  zipkin:
+    image: ghcr.io/openzipkin/zipkin-slim:latest
+    container_name: zipkin
+    environment:
+      - STORAGE_TYPE=mem
+      # Point the zipkin at the storage backend
+      - MYSQL_HOST=mysql
+      # Uncomment to enable self-tracing
+      # - SELF_TRACING_ENABLED=true
+      # Uncomment to increase heap size
+      # - JAVA_OPTS=-Xms128m -Xmx128m -XX:+ExitOnOutOfMemoryError
+    ports:
+      # Port used for the Zipkin UI and HTTP Api
+      - 9411:9411
+  prometheus:
+    image: prom/prometheus:latest
+    volumes:
+            - ./src/prometheus.config/prometheus.yml:/etc/prometheus/prometheus.yml
+            - prometheus_data:/prometheus
+    ports:
+      - 9090:9090
+  rabbitmq:
+    image: rabbitmq:3-management
+    ports:
+        - 5672:5672
+        - 15672:15672
+    volumes:
+        - rabbitmq_data:/var/lib/rabbitmq/
+        - rabbitmq_log:/var/log/rabbitmq
+volumes:
+  prometheus_data:
+  rabbitmq_data:
+  rabbitmq_log:
+  mysql_dev:
+      
